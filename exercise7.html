@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 7</title>
+    <script>
+      function f7(basket, prices) {
+      let total = 0;
+
+      for (let product in basket) {
+        let quantity = basket[product];
+        let price = prices[product];
+
+        if (price !== undefined) {
+          total += quantity * price;
+        } else {
+          console.log(`No price found for: ${product}`);
+        }
+      }
+
+      return total;
+    }
+      
+      function calculateTotal() {
+      const basketText = document.getElementById("basketInput").value;
+      const pricesText = document.getElementById("pricesInput").value;
+
+      try {
+        const basket = JSON.parse(basketText);
+        const prices = JSON.parse(pricesText);
+
+        const total = f7(basket, prices);
+        document.getElementById("result").textContent = total.toFixed(2);
+      } catch (e) {
+        document.getElementById("result").textContent = "Invalid input!";
+      }
+    }
+
+
+    </script>
+</head>
+<body>
+    <h2>Basket Cost Calculator</h2>
+
+ <label>Basket (product: quantity):</label><br>
+  <textarea id="basketInput" rows="5" cols="40">
+{
+  "apple": 2,
+  "banana": 3,
+  "orange": 1
+}
+  </textarea><br><br>
+
+  <label>Prices (product: price):</label><br>
+  <textarea id="pricesInput" rows="5" cols="40">
+{
+  "apple": 1.5,
+  "banana": 2.0,
+  "orange": 2.5
+}
+  </textarea><br><br>
+
+  <button onclick="calculateTotal()">Calculate Total</button>
+
+  <h3>Total: <span id="result">--</span></h3>
+
+    
+</body>
+</html>
